@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080d12">
+<title>Mano EuroLeague Fantasy LIVE</title>
+<style>
+:root{color-scheme:dark;--bg:#080d12;--panel:#111a22;--line:#283743;--text:#f4f7fa;--muted:#a7b5c1;--accent:#00e5d4;--orange:#ff9b32}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+header{padding:22px 18px 18px;background:linear-gradient(135deg,#132832,#0b1118);border-bottom:1px solid var(--line)}
+.kicker{font-size:11px;letter-spacing:2px;color:var(--accent);font-weight:800}.top{display:flex;align-items:center;justify-content:space-between;gap:12px}h1{font-size:24px;line-height:1.15;margin:7px 0}p{color:var(--muted);margin:8px 0 0;font-size:13px}
+.pill{border:1px solid #765f2e;color:#ffd17a;border-radius:99px;padding:7px 10px;font-size:11px;font-weight:800;white-space:nowrap}
+main{padding:14px;max-width:900px;margin:auto}.notice{padding:12px 13px;background:#2a2114;border:1px solid #614923;border-radius:12px;color:#ffe0a1;font-size:12px;line-height:1.45;margin-bottom:14px}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:15px}.metric{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:13px 10px}.metric span{display:block;font-size:11px;color:var(--muted);margin-bottom:7px}.metric strong{font-size:22px}.section{margin:18px 0 9px;display:flex;justify-content:space-between;align-items:center}.section h2{font-size:16px;margin:0}.count{font-size:11px;color:var(--muted)}
+.tabs{display:flex;gap:7px;margin:10px 0 12px}.tab{flex:1;border:1px solid var(--line);background:var(--panel);color:var(--muted);padding:10px;border-radius:10px;font-weight:700}.tab.active{border-color:var(--accent);color:var(--accent);background:#102b30}
+.group{font-size:11px;color:var(--orange);font-weight:800;letter-spacing:1px;margin:18px 2px 8px}
+.player{display:flex;align-items:center;gap:10px;padding:12px;background:var(--panel);border:1px solid var(--line);border-radius:13px;margin-bottom:8px}.avatar{width:38px;height:38px;display:grid;place-items:center;background:#20313c;border-radius:11px;font-size:11px;font-weight:800;color:var(--accent);flex-shrink:0}.info{flex:1;min-width:0}.name{font-weight:800;font-size:14px}.meta{font-size:11px;color:var(--muted);margin-top:4px}.points{text-align:right;min-width:55px}.points strong{font-size:18px}.points small{display:block;color:var(--muted);font-size:10px;margin-top:3px}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}.btn{border:0;border-radius:11px;padding:12px 10px;background:var(--accent);color:#001b1a;font-weight:900;font-size:12px;text-decoration:none;text-align:center}.btn.secondary{background:#1c2a34;color:var(--text);border:1px solid var(--line)}
+#livePanel{display:none}.livecard{padding:14px;background:var(--panel);border:1px solid var(--line);border-radius:13px;margin-bottom:8px}.livecard .line{display:flex;justify-content:space-between;gap:12px}.livecard strong{font-size:14px}.muted{color:var(--muted);font-size:12px;margin-top:5px}.footer{text-align:center;color:#778692;font-size:11px;line-height:1.5;padding:20px 8px 28px}
+@media(min-width:620px){.roster{display:grid;grid-template-columns:1fr 1fr;gap:8px}.player{margin:0}.group{grid-column:1/-1}.metrics{max-width:600px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="top"><div><div class="kicker">TAVO ASMENINIS TRACKERIS</div><h1>EuroLeague Fantasy<br>LIVE</h1></div><div class="pill">● DUOMENŲ ŠALTINIS NEPRIJUNGTAS</div></div>
+ <p>2026–27 sezonas · komandos stebėjimas telefone</p>
+</header>
+<main>
+ <div class="notice"><b>Svarbu:</b> tai tavo komandos paruoštas valdymo skydelis. Automatinis realių rungtynių duomenų tiekimas dar neprijungtas, todėl šiame puslapyje rodomi tik tavo atsiųstoje nuotraukoje buvę taškai. Nenoriu jų pateikti kaip gyvų rezultatų.</div>
+ <div class="metrics">
+  <div class="metric"><span>Nuotraukoje matomi FPTS</span><strong id="total">166,75</strong></div>
+  <div class="metric"><span>Komandos žaidėjai</span><strong>13</strong></div>
+  <div class="metric"><span>LIVE žaidžia dabar</span><strong>—</strong></div>
+ </div>
+ <div class="actions">
+  <a class="btn" href="https://fantasy.basketnews.com/eurolyga" target="_blank" rel="noopener">Atidaryti BasketNews ↗</a>
+  <a class="btn secondary" href="https://www.myfantasyplan.com/" target="_blank" rel="noopener">Atidaryti LIVE statistiką ↗</a>
+ </div>
+ <div class="tabs"><button class="tab active" id="teamTab">Visa komanda</button><button class="tab" id="liveTab">LIVE statistika</button></div>
+ <section id="teamPanel">
+  <div class="section"><h2>Mano žaidėjai</h2><span class="count">Pagal tavo ekrano nuotraukas</span></div>
+  <div class="roster" id="roster"></div>
+ </section>
+ <section id="livePanel">
+  <div class="section"><h2>Rungtynių metu</h2></div>
+  <div class="livecard"><div class="line"><strong>Automatiniai duomenys</strong><span class="pill">NEPRIJUNGTA</span></div><div class="muted">Kai bus prijungtas patikimas statistikos šaltinis, čia matysi žaidimo minutes, taškus, atkovotus kamuolius, rezultatyvius perdavimus, perimtus kamuolius, blokus, klaidas ir apskaičiuotus fantasy taškus.</div></div>
+  <div class="livecard"><div class="line"><strong>Kaip sekti dabar</strong></div><div class="muted">Atidaryk MyFantasyPlan arba oficialų BasketNews puslapį viršuje. Ši nuoroda atidaro išorinį šaltinį, bet dar neperduoda jo duomenų į tavo asmeninę lentelę.</div></div>
+ </section>
+ <div class="footer">Puslapis atvaizduoja tavo komandą lokaliai šiame faile. Jis neturi prisijungimo prie tavo BasketNews paskyros ir neprašo slaptažodžio.</div>
+</main>
+<script>
+const players=[
+ {n:"M. Lessort",c:"PAO",r:"Pagrindinė sudėtis",p:80},
+ {n:"S. Shields",c:"FEN",r:"Pagrindinė sudėtis",p:25.5},
+ {n:"G. Yabusele",c:"PAO",r:"Pagrindinė sudėtis",p:12},
+ {n:"M. Wright IV",c:"DUB",r:"Pagrindinė sudėtis",p:22.5},
+ {n:"F. Campazzo",c:"RMB",r:"Pagrindinė sudėtis",p:9.5},
+ {n:"A. Zizic",c:"BJK",r:"Suolelis",p:0},
+ {n:"A. Brown",c:"BJK",r:"Suolelis",p:0},
+ {n:"D. Hall",c:"EA7",r:"Suolelis",p:7.5},
+ {n:"B. Colson",c:"MTA",r:"Suolelis",p:7.5},
+ {n:"T. Horton-Tucker",c:"FEN",r:"Suolelis",p:2.25},
+ {n:"D. Theis",c:"MTA",r:"Neaktyvūs",p:0},
+ {n:"K. Edwards",c:"VIRT",r:"Neaktyvūs",p:0},
+ {n:"D. Dotson",c:"BJK",r:"Neaktyvūs",p:0}
+];
+const fmt=n=>Number.isInteger(n)?String(n):n.toLocaleString("lt-LT",{maximumFractionDigits:2});
+const root=document.getElementById("roster");
+let lastGroup="";
+players.forEach(p=>{
+ if(p.r!==lastGroup){const g=document.createElement("div");g.className="group";g.textContent=p.r.toUpperCase();root.appendChild(g);lastGroup=p.r}
+ const el=document.createElement("div");el.className="player";
+ el.innerHTML=`<div class="avatar">${p.c}</div><div class="info"><div class="name">${p.n}</div><div class="meta">${p.c} · ${p.r}</div></div><div class="points"><strong>${fmt(p.p)}</strong><small>FPTS nuotraukoje</small></div>`;
+ root.appendChild(el);
+});
+document.getElementById("teamTab").onclick=()=>{document.getElementById("teamPanel").style.display="block";document.getElementById("livePanel").style.display="none";document.getElementById("teamTab").classList.add("active");document.getElementById("liveTab").classList.remove("active")};
+document.getElementById("liveTab").onclick=()=>{document.getElementById("teamPanel").style.display="none";document.getElementById("livePanel").style.display="block";document.getElementById("liveTab").classList.add("active");document.getElementById("teamTab").classList.remove("active")};
+</script>
+</body></html>
